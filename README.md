@@ -8,8 +8,8 @@ This version of the Pure Storage PowerShell Toolkit has been deprecated. The new
 
 The 2.8.0.430 version of the Toolkit is provided here as an example of how to use the Pure Storage REST API with Windows PowerShell. It also serves as a historical reference for how Pure Storage started our integration work with Windows PowerShell. 
 
-Thanks,
-Barkz
-Solutions Architect, Pure Storage, Inc.
-@purepowershell
-http://purepowershellguy.com
+Thanks,<br>
+Barkz<br>
+Solutions Architect, Pure Storage, Inc.<br>
+@purepowershell<br>
+http://purepowershellguy.com<br>
