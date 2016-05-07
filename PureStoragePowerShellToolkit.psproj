@@ -1,0 +1,12 @@
+﻿<Project>
+  <Version>1.1</Version>
+  <FileID>e50c9a79-8d98-4669-b7e6-9299e38acd59</FileID>
+  <ProjectType>1</ProjectType>
+  <Folders />
+  <Files>
+    <File ReferenceName="" Build="2">PureStoragePowerShellToolkit.psd1</File>
+    <File ReferenceName="" Build="0">PureStoragePowerShellToolkit.psm1</File>
+  </Files>
+  <StartupScript>
+  </StartupScript>
+</Project>

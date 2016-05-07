@@ -12,11 +12,11 @@
 
 	Disclaimer
  	The sample script and documentation are provided AS IS and are not supported by 
-	the author or the author’s employer, unless otherwise agreed in writing. You bear 
+	the author or the author's employer, unless otherwise agreed in writing. You bear 
 	all risk relating to the use or performance of the sample script and documentation. 
-	The author and the author’s employer disclaim all express or implied warranties 
+	The author and the author's employer disclaim all express or implied warranties 
 	(including, without limitation, any warranties of merchantability, title, infringement 
-	or fitness for a particular purpose). In no event shall the author, the author’s employer 
+	or fitness for a particular purpose). In no event shall the author, the author's employer 
 	or anyone else involved in the creation, production, or delivery of the scripts be liable 
 	for any damages whatsoever arising out of the use or performance of the sample script and 
 	documentation (including, without limitation, damages for loss of business profits, 
@@ -79,7 +79,7 @@ function Open-PureStorageGitHub
 	}
 	catch
 	{
-		Display-Error	
+		Display-Error
 	}
 }
 
@@ -88,7 +88,9 @@ function Get-WindowsPowerScheme()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $ComputerName
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$ComputerName
 	)
 	
 	try
@@ -107,7 +109,9 @@ function Set-QueueDepth()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][int] $Qd
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[int]$Qd
 	)
 	try
 	{
@@ -165,7 +169,8 @@ function Get-HostBusAdapter()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $true)][string] $ComputerName
+		[Parameter(Mandatory = $true)]
+		[string]$ComputerName
 	)
 	
 	$Namespace = "root\WMI"
@@ -269,7 +274,9 @@ function Get-PfaApiVersion()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $True, Position = 0)][ValidateNotNullOrEmpty()][string] $FlashArray
+		[Parameter(Mandatory = $True, Position = 0)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray
 	)
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
 	
@@ -292,9 +299,14 @@ function Get-PfaApiToken()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $True, Position = 0)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True, Position = 1)][ValidateNotNullOrEmpty()][PSCredential] $Credential,
-		[ValidateSet('1.0', '1.1', '1.2', '1.3', '1.4')][string]$RESTAPI
+		[Parameter(Mandatory = $True, Position = 0)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True, Position = 1)]
+		[ValidateNotNullOrEmpty()]
+		[PSCredential]$Credential,
+		[ValidateSet('1.0', '1.1', '1.2', '1.3', '1.4')]
+		[string]$RESTAPI
 	)
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
 	
@@ -344,9 +356,15 @@ function Connect-PfaController()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False, Position = 0)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False, Position = 0)][ValidateNotNullOrEmpty()][string] $HttpTimeOut,
-		[Parameter(Mandatory = $True, Position = 1, ValueFromPipelineByPropertyName = $True)][ValidateNotNullOrEmpty()][string] $API_Token
+		[Parameter(Mandatory = $False, Position = 0)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False, Position = 0)]
+		[ValidateNotNullOrEmpty()]
+		[string]$HttpTimeOut,
+		[Parameter(Mandatory = $True, Position = 1, ValueFromPipelineByPropertyName = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$API_Token
 	)
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
 	
@@ -370,8 +388,13 @@ function Disconnect-PfaController()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -396,10 +419,14 @@ function Get-PfaShadowCopy()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $True)][string]$ScriptName = "PUREVSS-SNAP",
-		[Parameter(Mandatory = $True)][string]$MetadataFile,
-		[Parameter(Mandatory = $True)][string]$ShadowCopyAlias,
-		[Parameter(Mandatory = $True)][string]$ExposeAs
+		[Parameter(Mandatory = $True)]
+		[string]$ScriptName = "PUREVSS-SNAP",
+		[Parameter(Mandatory = $True)]
+		[string]$MetadataFile,
+		[Parameter(Mandatory = $True)]
+		[string]$ShadowCopyAlias,
+		[Parameter(Mandatory = $True)]
+		[string]$ExposeAs
 	)
 	
 	$dsh = "./$ScriptName.PFA"
@@ -417,11 +444,16 @@ function New-PfaShadowCopy()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $True)][string[]]$Volume,
-		[Parameter(Mandatory = $True)][string]$ScriptName = "PUREVSS-SNAP",
-		[Parameter(Mandatory = $True)][string]$MetadataFile,
-		[Parameter(Mandatory = $True)][string]$ShadowCopyAlias,
-		[ValidateSet('On', 'Off')][string]$VerboseMode = "On"
+		[Parameter(Mandatory = $True)]
+		[string[]]$Volume,
+		[Parameter(Mandatory = $True)]
+		[string]$ScriptName = "PUREVSS-SNAP",
+		[Parameter(Mandatory = $True)]
+		[string]$MetadataFile,
+		[Parameter(Mandatory = $True)]
+		[string]$ShadowCopyAlias,
+		[ValidateSet('On', 'Off')]
+		[string]$VerboseMode = "On"
 	)
 	$dsh = "./$ScriptName.PFA"
 	
@@ -453,8 +485,13 @@ function Watch-PfaPerformance()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -473,8 +510,13 @@ function Get-PfaArray
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	try
 	{
@@ -498,9 +540,16 @@ function Get-PfaHistoricalPerformance()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateSet('1h', '3h', '24h', '7d', '30d', '90d', '1y')][string]$TimePeriod,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('1h', '3h', '24h', '7d', '30d', '90d', '1y')]
+		[string]$TimePeriod,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -519,8 +568,13 @@ function Get-PfaConfiguration
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -569,8 +623,13 @@ function Get-PfaSpace
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -589,8 +648,13 @@ function Get-PfaConnection
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -609,8 +673,13 @@ function Get-PfaConsoleLock
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -629,8 +698,13 @@ function Get-PfaPhoneHome
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -649,8 +723,13 @@ function Get-PfaRemoteAssist
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -669,12 +748,24 @@ function New-PfaConnection
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $ManagementAddress,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $ConnectionKey,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $ReplicationAddress,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$ManagementAddress,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$ConnectionKey,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$ReplicationAddress,
 		#[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Type = "replication",
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -701,9 +792,16 @@ function Remove-PfaConnection
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -722,9 +820,16 @@ function Set-PfaBanner
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Banner,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Banner,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -743,9 +848,16 @@ function Set-PfaIdleTimeout
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][int] $IdleTimeout,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[int]$IdleTimeout,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -764,9 +876,16 @@ function Set-PfaName
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -785,9 +904,16 @@ function Set-PfaNtpServer
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string[]] $Servers,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Servers,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -810,9 +936,16 @@ function Set-PfaProxy
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -831,9 +964,16 @@ function Set-PfaRelayHost
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -852,9 +992,16 @@ function Set-PfaScsiTimeout
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][int] $Timeout,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[int]$Timeout,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -873,9 +1020,16 @@ function Set-PfaSenderDomain
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -894,9 +1048,16 @@ function Set-PfaSyslogServer
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Servers,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Servers,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -919,8 +1080,13 @@ function Enable-PfaConsoleLock
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -939,8 +1105,13 @@ function Disable-PfaConsoleLock
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -959,8 +1130,13 @@ function Enable-PfaPhonehome
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -979,8 +1155,13 @@ function Disable-PfaPhonehome
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -999,9 +1180,16 @@ function Send-PfaPhonehomeLogs()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateSet('All', 'Today', 'Yesterday', 'Cancel')][string]$TimePeriod,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('All', 'Today', 'Yesterday', 'Cancel')]
+		[string]$TimePeriod,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1028,8 +1216,13 @@ function Connect-PfaRemoteAssist
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1048,8 +1241,13 @@ function Disconnect-PfaRemoteAssist
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1070,11 +1268,16 @@ function Disconnect-PfaRemoteAssist
 #.ExternalHelp PureStoragePowerShell.psm1-help.xml
 function Get-PfaVolumes()
 {
-
+	
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1093,8 +1296,13 @@ function Get-PfaPendingVolumes()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1113,8 +1321,13 @@ function Get-PfaPendingOnlyVolumes()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1133,8 +1346,13 @@ function Get-PfaSnapshots()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1153,8 +1371,13 @@ function Get-PfaVolumesSpace()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1173,9 +1396,16 @@ function Watch-PfaVolumePerformance()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1195,10 +1425,19 @@ function Get-PfaHistoricalVolumePerformance()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateSet('1h', '3h', '24h', '7d', '30d', '90d', '1y')][string]$TimePeriod,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('1h', '3h', '24h', '7d', '30d', '90d', '1y')]
+		[string]$TimePeriod,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1217,9 +1456,16 @@ function Get-PfaVolume()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1238,9 +1484,16 @@ function Get-PfaVolumeSnapshots()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1259,9 +1512,16 @@ function Get-PfaVolumeSpace()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1280,9 +1540,16 @@ function Get-PfaVolumeSharedConnections()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1301,9 +1568,16 @@ function Get-PfaVolumePrivateConnections()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1322,12 +1596,25 @@ function Get-PfaVolumeDiff()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $BlockSize,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Length,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Offset,	
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$BlockSize,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Length,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Offset,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	If (!$Offset)
@@ -1351,14 +1638,25 @@ function Get-PfaVolumeDiff()
 
 #.ExternalHelp PureStoragePowerShell.psm1-help.xml
 function New-PfaVolume()
-{	
+{
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Size,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Source,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Size,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Source,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	$Volume = $null
@@ -1391,10 +1689,19 @@ function Update-PfaVolume()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Source,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Source,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	$Json = [ordered]@{
@@ -1418,10 +1725,19 @@ function New-PfaSnapshot()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string[]] $Volumes,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Suffix,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Volumes,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Suffix,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1449,10 +1765,19 @@ function Remove-PfaVolume()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Eradicate,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Eradicate,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	try
 	{
@@ -1493,9 +1818,16 @@ function Remove-PfaSnapshot()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	try
 	{
@@ -1513,13 +1845,22 @@ function Rename-PfaVolume
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $CurrentName,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $NewName,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$CurrentName,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$NewName,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	$Rename = @{
-		name ="$New"
+		name = "$New"
 	} | ConvertTo-Json
 	
 	try
@@ -1538,11 +1879,22 @@ function Resize-PfaVolume
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Size,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Truncate,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Size,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Truncate,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	If (!$Truncate)
@@ -1583,9 +1935,16 @@ function Restore-PfaVolume
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	$Recover = @{
@@ -1608,9 +1967,16 @@ function Restore-PfaSnapshot
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	$Recover = @{
@@ -1637,9 +2003,16 @@ function Get-PfaHosts()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateSet('Chap', 'Personality', 'Space')][string]$Display,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateSet('Chap', 'Personality', 'Space')]
+		[string]$Display,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	switch ($Display)
@@ -1665,11 +2038,22 @@ function Get-PfaHost()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateSet('Chap', 'Personality', 'Space')][string]$Display,
-		[Parameter(Mandatory = $False)][ValidateSet('All', 'Shared', 'Private')][string]$Volume,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateSet('Chap', 'Personality', 'Space')]
+		[string]$Display,
+		[Parameter(Mandatory = $False)]
+		[ValidateSet('All', 'Shared', 'Private')]
+		[string]$Volume,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	switch ($Display)
@@ -1714,11 +2098,22 @@ function New-PfaHost()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $IQNList,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $WWNList,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$IQNList,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$WWNList,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1752,16 +2147,25 @@ function New-PfaHost()
 		Display-Error
 	}
 }
-	
+
 #.ExternalHelp PureStoragePowerShell.psm1-help.xml
 function Connect-PfaHost()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Volume,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Volume,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	$HostConnect = $null
 	$HostConnect = [ordered]@{
@@ -1785,10 +2189,19 @@ function Connect-PfaVolume()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Volume,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Volume,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	try
 	{
@@ -1811,11 +2224,22 @@ function Disconnect-PfaVolume()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Volume,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Host = $null,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $HostGroup = $null,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Volume,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Host = $null,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$HostGroup = $null,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	If ($Host)
 	{
@@ -1844,9 +2268,16 @@ function Remove-PfaHost()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1869,10 +2300,19 @@ function Get-PfaHostGroups()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Name = $null,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Space,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name = $null,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Space,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1912,9 +2352,16 @@ function Get-PfaHostGroupVolumes()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1933,10 +2380,19 @@ function New-PfaHostGroup()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $HostList,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$HostList,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1967,10 +2423,19 @@ function Connect-PfaHostGroup()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Volume,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Volume,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -1989,10 +2454,19 @@ function Add-PfaHostGroupHosts()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $HostList,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$HostList,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2015,10 +2489,19 @@ function Remove-PfaHostGroupHosts()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $HostList,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$HostList,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2041,10 +2524,19 @@ function Update-PfaHostGroupHosts()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $HostList,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$HostList,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2067,10 +2559,19 @@ function Rename-PfaHostGroup()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $NewName,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$NewName,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2092,9 +2593,16 @@ function Remove-PfaHostGroup
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2113,10 +2621,19 @@ function Disconnect-PfaHostGroupVolume
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Volume,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Volume,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2139,8 +2656,13 @@ function Get-PfaProtectionGroups()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2159,10 +2681,19 @@ function Get-PfaProtectionGroupsSpace()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Source,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Target,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Source,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Target,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2192,10 +2723,19 @@ function Get-PfaProtectionGroupsSnapshotSpace()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Source,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Target,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Source,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Target,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2225,8 +2765,13 @@ function Get-PfaProtectionGroupsTransferStatisics()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2245,8 +2790,13 @@ function Get-PfaProtectionGroupsPending()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2266,10 +2816,19 @@ function Get-PfaProtectionGroupsSchedule()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Source,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Target,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Source,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Target,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2299,10 +2858,19 @@ function Get-PfaProtectionGroupsRetentionPolicy()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Source,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Target,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Source,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Target,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2318,7 +2886,7 @@ function Get-PfaProtectionGroupsRetentionPolicy()
 		else
 		{
 			$Uri = "$PureStorageURIBase/pgroup?retention=true"
-		}	
+		}
 		return (Invoke-RestMethod -Method Get -Uri $Uri -WebSession $Session -TimeoutSec $HttpTimeOut -ContentType "application/json")
 	}
 	catch
@@ -2332,8 +2900,13 @@ function Get-PfaProtectionGroupsPendingOnly()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2352,8 +2925,13 @@ function Get-PfaProtectionGroupsSnapshots()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2372,9 +2950,16 @@ function Get-PfaProtectionGroup()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2393,9 +2978,16 @@ function Get-PfaProtectionGroupSpace()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][switch] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2414,9 +3006,16 @@ function Get-PfaProtectionGroupSnapshotSpace()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][switch] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2435,9 +3034,16 @@ function Get-PfaProtectionGroupTransferStatisics()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2456,9 +3062,16 @@ function Get-PfaProtectionGroupPending()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2478,9 +3091,16 @@ function Get-PfaProtectionGroupSchedule()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2499,9 +3119,16 @@ function Get-PfaProtectionGroupRetentionPolicy()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2520,9 +3147,16 @@ function Get-PfaProtectionGroupPendingOnly()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2541,9 +3175,16 @@ function Get-PfaProtectionGroupSnapshots()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2562,11 +3203,22 @@ function New-PfaProtectionGroupSnapshot()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $ProtectionGroupName,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $SnapshotSuffix,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $ReplicateNow,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$ProtectionGroupName,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$SnapshotSuffix,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$ReplicateNow,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2577,7 +3229,7 @@ function New-PfaProtectionGroupSnapshot()
 			if (!$ReplicateNow)
 			{
 				$ProtectionGroupSnapshot = [ordered]@{
-					apply_retention = "true"	
+					apply_retention = "true"
 					snap = "true"
 					source = [Object[]]$ProtectionGroupName
 				} | ConvertTo-Json
@@ -2615,7 +3267,7 @@ function New-PfaProtectionGroupSnapshot()
 			}
 			
 		}
-	
+		
 		$Uri = "$PureStorageURIBase/pgroup"
 		$Return = Invoke-RestMethod -Method POST -Uri $Uri -Body $ProtectionGroupSnapshot -WebSession $Session -TimeoutSec $HttpTimeOut -ContentType "application/json"
 	}
@@ -2630,13 +3282,28 @@ function New-PfaProtectionGroup()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $HostGroups,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $Hosts,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $Volumes,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $ReplicationTargets,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$HostGroups,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Hosts,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Volumes,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$ReplicationTargets,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2685,7 +3352,7 @@ function New-PfaProtectionGroup()
 				vollist = [Object[]]$Volumes
 			} | ConvertTo-Json
 		}
-	
+		
 		$Uri = "$PureStorageURIBase/pgroup/$Name"
 		$Return = Invoke-RestMethod -Method POST -Uri $Uri -Body $ProtectionGroup -WebSession $Session -TimeoutSec $HttpTimeOut -ContentType "application/json"
 	}
@@ -2700,10 +3367,19 @@ function Remove-PfaProtectionGroup()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Eradicate,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Eradicate,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2759,10 +3435,19 @@ function Remove-PfaProtectionGroupSnapshots()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string[]] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Eradicate,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Eradicate,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2818,9 +3503,16 @@ function Restore-PfaProtectionGroup
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2842,9 +3534,16 @@ function Restore-PfaProtectionGroupSnapshots
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2857,7 +3556,7 @@ function Restore-PfaProtectionGroupSnapshots
 	}
 	catch
 	{
-		Display-Error	
+		Display-Error
 	}
 }
 
@@ -2866,10 +3565,19 @@ function Rename-PfaProtectionGroup
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $NewName,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$NewName,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2891,9 +3599,16 @@ function Enable-PfaProtectionGroupReplication
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2915,9 +3630,16 @@ function Disable-PfaProtectionGroupReplication
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2939,9 +3661,16 @@ function Enable-PfaProtectionGroupSnapshots
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2963,9 +3692,16 @@ function Disable-PfaProtectionGroupSnapshots
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -2987,13 +3723,28 @@ function Add-PfaProtectionGroupMembers()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $HostGroups,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $Hosts,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $Volumes,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $ReplicationTargets,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$HostGroups,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Hosts,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Volumes,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$ReplicationTargets,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3039,13 +3790,28 @@ function Remove-PfaProtectionGroupMembers()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $HostGroups,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $Hosts,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $Volumes,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $ReplicationTargets,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$HostGroups,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Hosts,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Volumes,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$ReplicationTargets,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3091,10 +3857,19 @@ function Update-PfaProtectionGroupReplication()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateSet('Allow', 'Disallow')][string]$Replication,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('Allow', 'Disallow')]
+		[string]$Replication,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3127,11 +3902,22 @@ function Set-PfaProtectionGroupReplicationBlackout()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][int] $StartTime,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][int] $EndTime,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[int]$StartTime,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[int]$EndTime,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3160,12 +3946,25 @@ function Restore-PfaProtectionGroupVolumeSnapshots()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $ProtectionGroup,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $SnapshotName,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Prefix,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Hostname,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$ProtectionGroup,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$SnapshotName,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Prefix,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Hostname,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 		
 	)
 	
@@ -3192,7 +3991,7 @@ function Restore-PfaProtectionGroupVolumeSnapshots()
 				$NewPGSnapshotVol = ($ValidPGroupVolName).Replace($ValidSourceName, $Prefix + "-")
 				$Temp = $PGroupVolume.volumes[$i].Replace($PGroupVolume.source + ":", "")
 				$NewSource = ($PGroupSnapshotsSet + "." + $Temp)
-					New-PfaVolume -Name $NewPGSnapshotVol -Source $NewSource -Session $Session -ErrorAction Stop
+				New-PfaVolume -Name $NewPGSnapshotVol -Source $NewSource -Session $Session -ErrorAction Stop
 				If ($Hostname)
 				{
 					Connect-PfaVolume -Name $Hostname -Volume $NewPGSnapshotVol -Session $Session -ErrorAction Stop
@@ -3215,8 +4014,13 @@ function Get-PfaPorts()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3235,8 +4039,13 @@ function Get-PfaInitiators()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3255,8 +4064,13 @@ function Enable-PfaPorts()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3275,8 +4089,13 @@ function Disable-PfaPorts()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3299,8 +4118,13 @@ function Get-PfaAlerts()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3319,9 +4143,16 @@ function Get-PfaAlertRecipient()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Email = "flasharray-alerts@purestorage.com",
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Email = "flasharray-alerts@purestorage.com",
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3340,9 +4171,16 @@ function New-PfaAlertRecipient()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Email,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Email,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3361,9 +4199,16 @@ function Test-PfaAlertRecipient()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Email,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Email,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3385,9 +4230,16 @@ function Enable-PfaAlertRecipient()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Email,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Email,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3409,9 +4261,16 @@ function Disable-PfaAlertRecipient()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Email,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Email,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3433,10 +4292,19 @@ function Get-PfaMessages()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateSet('All', 'Audit', 'Flagged', 'Open', 'Recent', 'User')][string]$Type,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Username,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('All', 'Audit', 'Flagged', 'Open', 'Recent', 'User')]
+		[string]$Type,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Username,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3463,9 +4331,16 @@ function Remove-PfaAlertRecipient()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Email,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Email,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3484,14 +4359,21 @@ function Hide-PfaMessage()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Id,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Id,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
 	{
-		$Uri = "$PureStorageURIBase/message/$Id" +"?flagged=false"
+		$Uri = "$PureStorageURIBase/message/$Id" + "?flagged=false"
 		$Return = Invoke-RestMethod -Method PUT -Uri $Uri -WebSession $Session -TimeoutSec $HttpTimeOut -ContentType "application/json"
 	}
 	catch
@@ -3505,9 +4387,16 @@ function Show-PfaMessage()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Id,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Id,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3530,9 +4419,16 @@ function Get-PfaSnmp()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $EngineId,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$EngineId,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3558,9 +4454,16 @@ function Remove-PfaSnmpManager()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Manager,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Manager,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3579,9 +4482,16 @@ function Get-PfaSnmpManager()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Manager,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Manager,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3600,15 +4510,34 @@ function New-PfaSnmpv3Manager()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Manager,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Hostname,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $User,
-		[Parameter(Mandatory = $False)][ValidateSet('MD5', 'SHA')][string]$AuthProtocol,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $AuthPassphrase,
-		[Parameter(Mandatory = $False)][ValidateSet('AES', 'DES')][string]$PrivacyProtocol,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $PrivacyPassphrase,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Manager,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Hostname,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$User,
+		[Parameter(Mandatory = $False)]
+		[ValidateSet('MD5', 'SHA')]
+		[string]$AuthProtocol,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$AuthPassphrase,
+		[Parameter(Mandatory = $False)]
+		[ValidateSet('AES', 'DES')]
+		[string]$PrivacyProtocol,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$PrivacyPassphrase,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3638,11 +4567,22 @@ function New-PfaSnmpv2cManager()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Manager,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Hostname,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Community,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Manager,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Hostname,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Community,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3668,10 +4608,19 @@ function Update-PfaSnmpManager()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Manager,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Name,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Manager,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3695,15 +4644,22 @@ function Test-PfaSnmpManager()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Manager,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Manager,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
 	{
 		$TestSnpManager = @{
-			action = "test"	
+			action = "test"
 		}
 		
 		$Uri = "$PureStorageURIBase/snmp/$Manager"
@@ -3724,8 +4680,13 @@ function Get-PfaSslCert()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3744,10 +4705,19 @@ function Export-PfaSslCert()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $Certificate,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][switch] $IntermediateCertificate,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$Certificate,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[switch]$IntermediateCertificate,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3785,8 +4755,13 @@ function Get-PfaDns
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3805,10 +4780,19 @@ function Set-PfaDns
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $Domain,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string[]] $Nameservers,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Domain,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$Nameservers,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3854,8 +4838,13 @@ function Get-PfaNetwork
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3874,9 +4863,15 @@ function Get-PfaNetworkInterface
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][string]$Interface,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[string]$Interface,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3900,8 +4895,13 @@ function Get-PfaHardware()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3920,9 +4920,16 @@ function Get-PfaHardwareComponent()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Component,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Component,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3941,10 +4948,19 @@ function Show-PfaHardwareLed()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Component,
-		[Parameter(Mandatory = $True)][ValidateSet('On', 'Off')][string]$State,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Component,
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('On', 'Off')]
+		[string]$State,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -3980,8 +4996,13 @@ function Get-PfaDrives()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4000,9 +5021,16 @@ function Get-PfaDrive()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Location,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Location,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4025,9 +5053,16 @@ function Get-PfaUsers()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateSet('API_Token', 'Public_Key')][string]$Show,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('API_Token', 'Public_Key')]
+		[string]$Show,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4051,10 +5086,19 @@ function Get-PfaUser()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateSet('API_Token', 'Public_Key')][string]$Show,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $User,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('API_Token', 'Public_Key')]
+		[string]$Show,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$User,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4064,7 +5108,7 @@ function Get-PfaUser()
 			switch ($Show)
 			{
 				"API_Token" { $Uri = "$PureStorageURIBase/admin/$User" + "/apitoken" }
-				"Public_Key" { $Uri = "$PureStorageURIBase/admin/$User" + "?publickey=true"}
+				"Public_Key" { $Uri = "$PureStorageURIBase/admin/$User" + "?publickey=true" }
 			}
 		}
 		else
@@ -4089,14 +5133,21 @@ function New-PfaApiToken()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $User,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$User,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
 	{
-		$Uri = "$PureStorageURIBase/admin/$User" + "/apitoken" 
+		$Uri = "$PureStorageURIBase/admin/$User" + "/apitoken"
 		return (Invoke-RestMethod -Method POST -Uri $Uri -WebSession $Session -TimeoutSec $HttpTimeOut -ContentType "application/json")
 	}
 	catch
@@ -4110,8 +5161,13 @@ function Clear-PfaPermissionCache()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4135,11 +5191,22 @@ function Set-PfaUserPassword()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $User,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $Old,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $New,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$User,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Old,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$New,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4164,10 +5231,19 @@ function Set-PfaUserPublicKey()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $User,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $PublicKey,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$User,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$PublicKey,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4191,15 +5267,22 @@ function Remove-PfaApiToken()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $User,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$User,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
 	{
 		$Uri = "$PureStorageURIBase/admin/$User" + "/apitoken"
-		$Return =  Invoke-RestMethod -Method DELETE -Uri $Uri -WebSession $Session -TimeoutSec $HttpTimeOut -ContentType "application/json"
+		$Return = Invoke-RestMethod -Method DELETE -Uri $Uri -WebSession $Session -TimeoutSec $HttpTimeOut -ContentType "application/json"
 	}
 	catch
 	{
@@ -4212,8 +5295,13 @@ function Get-PfaDirectoryService()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4232,8 +5320,13 @@ function Get-PfaDirectoryServiceGroups()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4252,8 +5345,13 @@ function Get-PfaDirectoryServiceCertificate()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4272,15 +5370,20 @@ function Test-PfaDirectoryService()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
 	{
 		$DirService = $null
 		$DirService = @{
-			action = "test"	
+			action = "test"
 		} | ConvertTo-Json
 		
 		$Uri = "$PureStorageURIBase/directoryservice"
@@ -4298,8 +5401,13 @@ function Enable-PfaDirectoryService()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4323,8 +5431,13 @@ function Disable-PfaDirectoryService()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4333,7 +5446,7 @@ function Disable-PfaDirectoryService()
 		$DirServiceEnabled = @{
 			enabled = "false"
 		} | ConvertTo-Json
-
+		
 		$Uri = "$PureStorageURIBase/directoryservice"
 		$Return = Invoke-RestMethod -Method PUT -Uri $Uri -Body $DirServiceEnabled -WebSession $Session -TimeoutSec $HttpTimeOut -ContentType "application/json"
 	}
@@ -4348,16 +5461,37 @@ function Update-PfaDirectoryService()
 {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $False)][ValidateNotNullOrEmpty()][string] $FlashArray,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string[]] $LdapUri,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $BaseDN,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $GroupBase,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $ArrayAdminGroup,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $StorageAdminGroup,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $ReadOnlyGroup,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $BindUser,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][string] $BindPassword,
-		[Parameter(Mandatory = $True)][ValidateNotNullOrEmpty()][Microsoft.PowerShell.Commands.WebRequestSession]$Session
+		[Parameter(Mandatory = $False)]
+		[ValidateNotNullOrEmpty()]
+		[string]$FlashArray,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string[]]$LdapUri,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$BaseDN,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupBase,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$ArrayAdminGroup,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$StorageAdminGroup,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$ReadOnlyGroup,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$BindUser,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[string]$BindPassword,
+		[Parameter(Mandatory = $True)]
+		[ValidateNotNullOrEmpty()]
+		[Microsoft.PowerShell.Commands.WebRequestSession]
+		$Session
 	)
 	
 	try
@@ -4447,7 +5581,7 @@ Export-ModuleMember -function Get-PfaProtectionGroupsTransferStatisics
 Export-ModuleMember -Function Get-PfaProtectionGroupsSnapshotSpace
 Export-ModuleMember -function Get-PfaProtectionGroupsSpace
 Export-ModuleMember -function Get-PfaProtectionGroup
-Export-ModuleMember -function Get-PfaProtectionGroupsSnapshots 
+Export-ModuleMember -function Get-PfaProtectionGroupsSnapshots
 Export-ModuleMember -function Get-PfaProtectionGroupPending
 Export-ModuleMember -function Get-PfaProtectionGroupPendingOnly
 Export-ModuleMember -function Get-PfaProtectionGroupSchedule
@@ -4537,7 +5671,7 @@ Export-ModuleMember -function Update-PfaSnmpManager
 Export-ModuleMember -function Remove-PfaSnmpManager
 Export-ModuleMember -function Test-PfaSnmpManager
 Export-ModuleMember -function Get-PfaSslCert
-Export-ModuleMember -function Export-PfaSslCert 
+Export-ModuleMember -function Export-PfaSslCert
 Export-ModuleMember -function Get-PfaDns
 Export-ModuleMember -function Set-PfaDns
 Export-ModuleMember -function Get-PfaNetwork
@@ -4568,4 +5702,3 @@ Set-Alias -Name scanhost -Value Register-PfaHostVolumes -Scope Global
 Export-ModuleMember -Function Unregister-PfaHostVolumes
 Set-Alias -Name removevols -Value Unregister-PfaHostVolumes -Scope Global
 Export-ModuleMember -function Get-QuickFixEngineering
-#Export-ModuleMember -function Test-Configuration
