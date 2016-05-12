@@ -10,7 +10,7 @@ The 2.8.0.430 version of the Toolkit is provided here as an example of how to us
 MSI has been digitally signed.
 
 Thanks,<br>
-Barkz<br>
+Rob Barker (aka Barkz)<br>
 Solutions Architect, Pure Storage, Inc.<br>
 @purepowershell<br>
 http://purepowershellguy.com<br>
