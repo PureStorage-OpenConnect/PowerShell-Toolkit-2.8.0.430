@@ -7,7 +7,7 @@ This version of the Pure Storage PowerShell Toolkit has been deprecated. The new
 
 The 2.8.0.430 version of the Toolkit is provided here as an example of how to use the Pure Storage REST API with Windows PowerShell. It also serves as a historical reference for how Pure Storage started our integration work with Windows PowerShell. 
 
-MSI has been digitally signed.
+All releases of the PowerShellToolkit will have a digitally signed MSI and PSM1 files.
 
 Thanks,<br>
 Rob Barker (aka Barkz)<br>
